@@ -5,6 +5,7 @@ var firstRound = true;
 let createOperating = function() {
     let number1 = Math.round( Math.random() * 10 );
     let number2 = Math.round ( Math.random() * 10 );
+
     let result = number1 + number2;
     return( [`${number1} + ${number2}` , number1+number2]);
 }
