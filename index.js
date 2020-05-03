@@ -1,4 +1,3 @@
-$('#counting-down').text(10);
 
 let createOperating = function() {
     let number1 = Math.round( Math.random() * 10 );
@@ -21,6 +20,8 @@ let checkUserAnswer = function() {
         currentScore++;
         $('#current-score').text(`Current score: ${currentScore}`);
         $('#user-answer').val('');
+        timeLeft++;
+        $('#counting-down').text(timeLeft);
         setQuestion();
     }
     else {
@@ -29,8 +30,24 @@ let checkUserAnswer = function() {
     }
 }
 
+var timeLeft = 10;
+let countingDown = function() {
+    let timer = setInterval( function(){
+        timeLeft--;
+        if(timeLeft >= 0) {
+            $('#counting-down').text(timeLeft);
+        }
+        else{
+            clearInterval(timer);
+            endGame();
+        }        
+        
+    } , 1000);
+}
+
 var currentScore = 0;
 $(document).ready( function(){
     setQuestion();
     $(document).on('change' , '#user-answer', checkUserAnswer);
+    countingDown();
 });
