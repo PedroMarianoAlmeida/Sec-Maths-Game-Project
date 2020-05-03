@@ -8,7 +8,7 @@ let createOperating = function() {
 }
 
 var currentOperation;
-let setFirstRound = function(){
+let setQuestion = function(){
     currentOperation = createOperating();
     $('#operation').text(currentOperation[0]);
 }
@@ -20,14 +20,17 @@ let checkUserAnswer = function() {
         //console.log('correct answer');
         currentScore++;
         $('#current-score').text(`Current score: ${currentScore}`);
+        $('#user-answer').val('');
+        setQuestion();
     }
     else {
         //console.log('Wrong answer');
+        $('#user-answer').val('');
     }
 }
 
 var currentScore = 0;
 $(document).ready( function(){
-    setFirstRound();
+    setQuestion();
     $(document).on('change' , '#user-answer', checkUserAnswer);
 });
