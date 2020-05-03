@@ -3,6 +3,30 @@ var currentScore = 0;
 var firstRound = true;
 
 let createOperating = function() {
+    let operateOptions = [];
+    if( $('#sum-operator').is(':checked') ){
+        operateOptions.push('+');
+    }
+    if( $('#sub-operator').is(':checked') ){
+        operateOptions.push('-');
+    }
+    if( $('#mul-operator').is(':checked') ){
+        operateOptions.push('*');
+    }
+    if( $('#div-operator').is(':checked') ){
+        operateOptions.push('/');
+    }
+    let randomOperator = function(){
+        if(operateOptions.length === 1) {
+            return operateOptions[0];
+        }
+        else{
+            let position = Math.floor( Math.random() * operateOptions.length + 1 );
+            return(operateOptions[position]);
+        }
+    }
+    let operator = opeateOptions[randomOperator()]
+
     let number1 = Math.round( Math.random() * 10 );
     let number2 = Math.round ( Math.random() * 10 );
 
