@@ -4,10 +4,10 @@ var firstRound = true;
 
 let createOperating = function() {
     let operateOptions = [];
-    if( $('#sum-operator').is(':checked') ){
+    if( $('#sum-operator').is(":checked") ){
         operateOptions.push('+');
     }
-    if( $('#sub-operator').is(':checked') ){
+    if( $('#sub-operator').is('checked') ){
         operateOptions.push('-');
     }
     if( $('#mul-operator').is(':checked') ){
@@ -21,17 +21,18 @@ let createOperating = function() {
             return operateOptions[0];
         }
         else{
-            let position = Math.floor( Math.random() * operateOptions.length + 1 );
+            let position = Math.floor( Math.random() * operateOptions.length);
             return(operateOptions[position]);
         }
-    }
-    let operator = opeateOptions[randomOperator()]
+    }    
 
     let number1 = Math.round( Math.random() * 10 );
     let number2 = Math.round ( Math.random() * 10 );
-
-    let result = number1 + number2;
-    return( [`${number1} + ${number2}` , number1+number2]);
+    
+    let operation = `${number1} ${randomOperator()} ${number2}`;    
+    
+    let result = Math.floor( eval(operation) );
+    return( [operation , result]);
 }
 
 var currentOperation;
