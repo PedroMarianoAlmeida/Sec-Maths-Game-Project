@@ -58,7 +58,6 @@ let showTimeLeft = function (){
 let endGame = function() {
     $('#game-over').show();
     $('#user-answer').attr('readonly', true);
-    $('#current-score').text(`Final score: ${currentScore}`);
 }
 
 let countingDown = function() {
