@@ -7,7 +7,7 @@ let createOperating = function() {
     if( $('#sum-operator').is(":checked") ){
         operateOptions.push('+');
     }
-    if( $('#sub-operator').is('checked') ){
+    if( $('#sub-operator').is(":checked") ){
         operateOptions.push('-');
     }
     if( $('#mul-operator').is(':checked') ){
@@ -25,12 +25,20 @@ let createOperating = function() {
             return(operateOptions[position]);
         }
     }    
-
+    
+    let operator = randomOperator();
     let number1 = Math.round( Math.random() * 10 );
-    let number2 = Math.round ( Math.random() * 10 );
+    let number2 = function() {
+        if(operator === '/') {
+            return Math.round( ( Math.random() * (10 - 1) ) + 1 ) //This is for number 2 never to become zero in a division, causing a NaN situation
+        }
+        if(operator === '-'){
+            return Math.round(  Math.random() * (10 - number1) ) //This is for number2 never be higher than number1 in a subtraction, causing a negative number 
+        }
+        return Math.round ( Math.random() * 10 );
+    }    
     
-    let operation = `${number1} ${randomOperator()} ${number2}`;    
-    
+    let operation = `${number1} ${operator} ${number2()}`;   
     let result = Math.floor( eval(operation) );
     return( [operation , result]);
 }
