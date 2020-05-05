@@ -1,6 +1,7 @@
 var timeLeft = 10;
 var currentScore = 0;
 var firstRound = true;
+let maxNumber = 10;
 
 let createOperating = function() {
     let operateOptions = [];
@@ -27,13 +28,13 @@ let createOperating = function() {
     }    
     
     let operator = randomOperator();
-    let number1 = Math.round( Math.random() * 10 );
+    let number1 = Math.round( Math.random() * maxNumber );
     let number2 = function() {
         if(operator === '/') {
-            return Math.round( ( Math.random() * (10 - 1) ) + 1 ) //This is for number 2 never to become zero in a division, causing a NaN situation
+            return Math.round( ( Math.random() * (maxNumber - 1) ) + 1 ) //This is for number2 never to become zero in a division, causing a NaN situation
         }
         if(operator === '-'){
-            return Math.round(  Math.random() * (10 - number1) ) //This is for number2 never be higher than number1 in a subtraction, causing a negative number 
+            return Math.round(  Math.random() * (number1) ) //This is for number2 never be higher than number1 in a subtraction, causing a negative number 
         }
         return Math.round ( Math.random() * 10 );
     }    
@@ -112,10 +113,23 @@ let reestartGame = function() {
     $('#user-answer').removeAttr('readonly');
 }
 
-$(document).ready( function(){
+let changeMaxValue = function() {
+    let maxNumberChanged = $('#number-limit-control').val();
+    $('#number-limit-exhibt').text(maxNumberChanged);
+    maxNumber = maxNumberChanged;
+}
+
+let firstLoad = function() {
     $('#game-over').hide();
     setQuestion();
-    $(document).on('keydown' , '#user-answer', startGame)
+    $('#number-limit-exhibt').text(maxNumber);
+    $('#number-limit-control').val(maxNumber);
+}
+
+$(document).ready( function(){
+    firstLoad();
+    $(document).on('keydown' , '#user-answer', startGame);
     $(document).on('change' , '#user-answer', checkUserAnswer);
-    $(document).on('click' , '#btn-try-again' , reestartGame)
+    $(document).on('click' , '#btn-try-again' , reestartGame);
+    $(document).on('change' , '#number-limit-control' , changeMaxValue);
 });
