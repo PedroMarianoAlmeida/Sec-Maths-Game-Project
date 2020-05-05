@@ -1,5 +1,6 @@
 var timeLeft = 10;
 var currentScore = 0;
+var highScore = 0;
 var firstRound = true;
 let maxNumber = 10;
 
@@ -74,8 +75,12 @@ let countingDown = function() {
     } , 1000);
 }
 
-let showCurrentScore = function() {
-    $('#current-score').text(`Current score: ${currentScore}`);
+let updateScoreAndHighScore = function() {
+    $('#current-score').text(currentScore);
+    if(currentScore > highScore){
+        highScore = currentScore;
+        $('#high-score').text(highScore);
+    }
 }
 
 let startGame = function(){
@@ -91,7 +96,7 @@ let checkUserAnswer = function() {
     if( Number(userAnswer) === Number(currentOperation[1]) ) {
         //console.log('correct answer');
         currentScore++;
-        showCurrentScore();
+        updateScoreAndHighScore();
         $('#user-answer').val('');
         timeLeft++;
         showTimeLeft();
@@ -109,7 +114,7 @@ let reestartGame = function() {
     timeLeft = 10;
     showTimeLeft();
     currentScore = 0;
-    showCurrentScore();
+    updateScoreAndHighScore();
     $('#user-answer').removeAttr('readonly');
 }
 
