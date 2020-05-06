@@ -26,21 +26,36 @@ let createOperating = function() {
             let position = Math.floor( Math.random() * operateOptions.length);
             return(operateOptions[position]);
         }
-    }    
+    }
+
+    let rangeRandom = function (min, max) {
+        let randomNumber = ( Math.random() * (max- min) ) + min;
+        return Math.round (randomNumber);
+    }
     
     let operator = randomOperator();
-    let number1 = Math.round( Math.random() * maxNumber );
+    let number1 = rangeRandom(0, maxNumber);
     let number2 = function() {
         if(operator === '/') {
-            return Math.round( ( Math.random() * (maxNumber - 1) ) + 1 ) //This is for number2 never to become zero in a division, causing a NaN situation
+            let multiplication = number1 * rangeRandom(1 , maxNumber);
+            return multiplication;
         }
         if(operator === '-'){
-            return Math.round(  Math.random() * (number1) ) //This is for number2 never be higher than number1 in a subtraction, causing a negative number 
+            return rangeRandom(0, number1) //This is for number2 never be higher than number1 in a subtraction, causing a negative number 
         }
-        return Math.round ( Math.random() * 10 );
-    }    
+        return rangeRandom(0, maxNumber);
+    }
+
+    let operation;
+    if(operator === '/') {
+        operation = `${number2()} ${operator} ${number1}`;
+    }
+    else 
+    {
+        operation = `${number1} ${operator} ${number2()}`;
+    }
     
-    let operation = `${number1} ${operator} ${number2()}`;   
+    //let operation = `${number1} ${operator} ${number2()}`;   
     let result = Math.floor( eval(operation) );
     return( [operation , result]);
 }
