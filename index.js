@@ -48,11 +48,11 @@ let createOperating = function() {
 
     let operation;
     if(operator === '/') {
-        operation = `${number2()} ${operator} ${number1}`;
+        operation = `${String(number2())} ${operator} ${String(number1)}`;
     }
     else 
     {
-        operation = `${number1} ${operator} ${number2()}`;
+        operation = `${String(number1)} ${operator} ${String(number2())}`;
     }
     
     //let operation = `${number1} ${operator} ${number2()}`;   
