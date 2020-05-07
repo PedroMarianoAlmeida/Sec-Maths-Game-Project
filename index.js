@@ -36,9 +36,13 @@ let createOperating = function() {
     let operator = randomOperator();
     let number1 = rangeRandom(0, maxNumber);
     let number2 = function() {
-        if(operator === '/') {
-            let multiplication = number1 * rangeRandom(1 , maxNumber);
-            return multiplication;
+        if(operator === '/') { //Have to garantee the operation number1/number2 is a integer number
+            let possibleNumbers = [1]; //Any number is divisible for 1
+            for(let i = 2 ; i <= maxNumber; i++) {
+                if(number1 % i === 0 ) possibleNumbers.push(i);
+            }
+            let position = rangeRandom(0 , possibleNumbers.length - 1);
+            return possibleNumbers[position];
         }
         if(operator === '-'){
             return rangeRandom(0, number1) //This is for number2 never be higher than number1 in a subtraction, causing a negative number 
@@ -46,16 +50,7 @@ let createOperating = function() {
         return rangeRandom(0, maxNumber);
     }
 
-    let operation;
-    if(operator === '/') {
-        operation = `${String(number2())} ${operator} ${String(number1)}`;
-    }
-    else 
-    {
-        operation = `${String(number1)} ${operator} ${String(number2())}`;
-    }
-    
-    //let operation = `${number1} ${operator} ${number2()}`;   
+    let operation = `${String(number1)} ${operator} ${String(number2())}`;
     let result = Math.floor( eval(operation) );
     return( [operation , result]);
 }
